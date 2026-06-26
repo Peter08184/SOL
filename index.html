@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eldtree</title>
+    <meta name="description" content="어르신이 쉽게 사용할 수 있는 가족 연계형 화면 초안" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="photo-ambient" aria-hidden="true">
+      <div class="photo-slide slide-1"></div>
+      <div class="photo-slide slide-2"></div>
+      <div class="photo-slide slide-3"></div>
+    </div>
+
+    <main class="page">
+      <section class="screen active" id="home">
+        <p class="chip">홈</p>
+        <h1>안녕하세요</h1>
+        <p class="subtitle">가족과 함께 쉬운 화면</p>
+
+        <div class="button-grid">
+          <button type="button" class="nav-btn" data-target="photo">사진 보기</button>
+          <button type="button" class="nav-btn" data-target="video">영상 보기</button>
+          <button type="button" class="nav-btn" data-target="game">게임 하기</button>
+          <button type="button" class="nav-btn" data-target="mood">기분 체크</button>
+        </div>
+
+        <div class="quick-row">
+          <div class="quick-box">오늘의 기분</div>
+          <div class="quick-box">도움 요청</div>
+        </div>
+
+        <div class="feature-box">
+          <p class="feature-title">차별점</p>
+          <p>가족의 사진과 영상, 쉬운 게임, 그리고 AI 도우미가 함께 있는 돌봄 화면입니다.</p>
+        </div>
+
+        <div class="link-box">
+          <label class="link-label" for="link-input">링크 열기</label>
+          <div class="link-controls">
+            <input id="link-input" class="link-input" type="url" placeholder="https://example.com" />
+            <button type="button" class="link-btn" id="open-link-btn">열기</button>
+          </div>
+          <p class="link-helper">원하는 웹사이트 주소를 입력해 보세요.</p>
+        </div>
+
+        <div class="assistant-inline">
+          <p class="assistant-inline-title">AI 대화</p>
+          <div class="assistant-bubble">원하는 곳으로 안내해 드릴게요.</div>
+          <div class="assistant-options inline-options">
+            <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
+            <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
+            <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
+            <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="photo">
+        <button type="button" class="back-btn" data-target="home">← 홈</button>
+        <h2>사진 보기</h2>
+        <div class="preview">가족 사진이 여기 표시됩니다.</div>
+        <p class="helper">가족과 함께한 사진을 크게 볼 수 있어요.</p>
+      </section>
+
+      <section class="screen" id="video">
+        <button type="button" class="back-btn" data-target="home">← 홈</button>
+        <h2>영상 보기</h2>
+        <div class="preview">짧은 영상이 재생됩니다.</div>
+        <p class="helper">가족의 따뜻한 메시지를 쉽게 들을 수 있어요.</p>
+      </section>
+
+      <section class="screen" id="game">
+        <button type="button" class="back-btn" data-target="home">← 홈</button>
+        <h2>게임 하기</h2>
+        <div class="game-tabs">
+          <button type="button" class="game-tab active" data-game="memory">같은 그림 찾기</button>
+          <button type="button" class="game-tab" data-game="number">숫자 순서</button>
+          <button type="button" class="game-tab" data-game="color">색깔 맞추기</button>
+        </div>
+
+        <div class="game-panel active" id="memory-game">
+          <p class="game-question">같은 그림을 고르세요.</p>
+          <div class="game-options">
+            <button type="button" class="game-option" data-correct="true">🌼</button>
+            <button type="button" class="game-option">🌲</button>
+            <button type="button" class="game-option">☀️</button>
+          </div>
+        </div>
+
+        <div class="game-panel" id="number-game">
+          <p class="game-question">1, 2, 3 다음은?</p>
+          <div class="game-options">
+            <button type="button" class="game-option">4</button>
+            <button type="button" class="game-option">7</button>
+            <button type="button" class="game-option">9</button>
+          </div>
+        </div>
+
+        <div class="game-panel" id="color-game">
+          <p class="game-question">빨간색을 고르세요.</p>
+          <div class="game-options">
+            <button type="button" class="game-option">🔵</button>
+            <button type="button" class="game-option" data-correct="true">🔴</button>
+            <button type="button" class="game-option">🟢</button>
+          </div>
+        </div>
+
+        <p class="game-result" id="game-result">정답을 선택해 보세요.</p>
+      </section>
+
+      <section class="screen" id="mood">
+        <button type="button" class="back-btn" data-target="home">← 홈</button>
+        <h2>기분 체크</h2>
+        <div class="preview">오늘의 기분을 선택해 주세요.</div>
+        <p class="helper">작은 체크로 마음 상태를 남길 수 있어요.</p>
+      </section>
+    </main>
+
+    <aside class="assistant-panel" aria-label="AI assistant">
+      <div class="assistant-header">AI 도우미</div>
+      <div class="assistant-bubble">무엇을 도와드릴까요?</div>
+      <div class="assistant-options">
+        <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
+        <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
+        <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
+        <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
+      </div>
+      <p class="assistant-note">어르신이 원하는 곳으로 바로 이동할 수 있어요.</p>
+    </aside>
+
+    <script src="script.js"></script>
+  </body>
+</html>
