@@ -171,10 +171,82 @@ button {
   display: block;
 }
 
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.game-score {
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.game-reset {
+  background: #f3e0ca;
+  color: var(--primary-dark);
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
 .game-question {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 12px;
+}
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.memory-card {
+  position: relative;
+  padding: 0;
+  aspect-ratio: 1;
+  background: transparent;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.memory-card .card-front,
+.memory-card .card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  backface-visibility: hidden;
+}
+
+.memory-card .card-back {
+  background: linear-gradient(135deg, #d99359, #b85a1e);
+  color: #fff;
+  font-size: 2.3rem;
+}
+
+.memory-card .card-front {
+  background: #fffaf4;
+  border: 2px solid #efddcc;
+  font-size: 2.2rem;
+  transform: rotateY(180deg);
+}
+
+.memory-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.memory-card.is-matched {
+  transform: rotateY(180deg);
+}
+
+.memory-card.is-matched .card-front {
+  border-color: #c96a2a;
+  box-shadow: 0 0 0 3px rgba(201, 106, 42, 0.12);
 }
 
 .game-options {
@@ -184,15 +256,60 @@ button {
 }
 
 .game-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: #f7e7d4;
   color: var(--primary-dark);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
+}
+
+.game-option.correct {
+  background: #e7f6ea;
+  color: #23723a;
+}
+
+.game-option.wrong {
+  background: #fff1ef;
+  color: #a9482a;
+}
+
+.color-option {
+  font-size: 1rem;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.swatch-red {
+  background: #e9544d;
+}
+
+.swatch-blue {
+  background: #58a8ff;
+}
+
+.swatch-green {
+  background: #62c07d;
 }
 
 .game-result {
   margin-top: 14px;
   font-weight: 700;
   color: var(--primary-dark);
+}
+
+.game-result[data-state='success'] {
+  color: #2d7a3d;
+}
+
+.game-result[data-state='warning'] {
+  color: #a04320;
 }
 
 .quick-row {
