@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -9,169 +8,183 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="photo-ambient" aria-hidden="true">
-      <div class="photo-slide slide-1"></div>
-      <div class="photo-slide slide-2"></div>
-      <div class="photo-slide slide-3"></div>
-    </div>
+    <div class="rings" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="24" cy="24" r="6" fill="currentColor"/>
+          </svg>
+        </span>
+        Eldtree
+      </div>
+      <button type="button" class="text-size-btn" id="text-size-btn" aria-pressed="false">
+        <span aria-hidden="true">A+</span> 글자 크게
+      </button>
+    </header>
 
     <main class="page">
-      <section class="screen active" id="home">
-        <p class="chip">홈</p>
-        <h1>안녕하세요</h1>
-        <p class="subtitle">가족과 함께 쉬운 화면</p>
+      <div class="screen-stack">
+        <section class="screen active" id="home">
+          <p class="chip">홈</p>
+          <h1>안녕하세요</h1>
+          <p class="subtitle">원하는 것을 큰 버튼으로 골라보세요</p>
 
-        <div class="button-grid">
-          <button type="button" class="nav-btn" data-target="photo">사진 보기</button>
-          <button type="button" class="nav-btn" data-target="video">영상 보기</button>
-          <button type="button" class="nav-btn" data-target="game">게임 하기</button>
-          <button type="button" class="nav-btn" data-target="mood">기분 체크</button>
-        </div>
-
-        <div class="quick-row">
-          <div class="quick-box">오늘의 기분</div>
-          <div class="quick-box">도움 요청</div>
-        </div>
-
-        <div class="feature-box">
-          <p class="feature-title">차별점</p>
-          <p>가족의 사진과 영상, 쉬운 게임, 그리고 AI 도우미가 함께 있는 돌봄 화면입니다.</p>
-        </div>
-
-        <div class="link-box">
-          <label class="link-label" for="link-input">링크 열기</label>
-          <div class="link-controls">
-            <input id="link-input" class="link-input" type="url" placeholder="https://example.com" />
-            <button type="button" class="link-btn" id="open-link-btn">열기</button>
-          </div>
-          <p class="link-helper">원하는 웹사이트 주소를 입력해 보세요.</p>
-        </div>
-
-        <div class="assistant-inline">
-          <p class="assistant-inline-title">AI 대화</p>
-          <div class="assistant-bubble">원하는 곳으로 안내해 드릴게요.</div>
-          <div class="assistant-options inline-options">
-            <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
-            <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
-            <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
-            <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen" id="photo">
-        <button type="button" class="back-btn" data-target="home">← 홈</button>
-        <h2>사진 보기</h2>
-        <div class="preview">가족 사진이 여기 표시됩니다.</div>
-        <p class="helper">가족과 함께한 사진을 크게 볼 수 있어요.</p>
-      </section>
-
-      <section class="screen" id="video">
-        <button type="button" class="back-btn" data-target="home">← 홈</button>
-        <h2>영상 보기</h2>
-        <div class="preview">짧은 영상이 재생됩니다.</div>
-        <p class="helper">가족의 따뜻한 메시지를 쉽게 들을 수 있어요.</p>
-      </section>
-
-      <section class="screen" id="game">
-        <button type="button" class="back-btn" data-target="home">← 홈</button>
-        <h2>게임 하기</h2>
-        <div class="game-tabs">
-          <button type="button" class="game-tab active" data-game="memory">같은 그림 찾기</button>
-          <button type="button" class="game-tab" data-game="number">숫자 순서</button>
-          <button type="button" class="game-tab" data-game="color">색깔 맞추기</button>
-        </div>
-
-        <div class="game-panel active" id="memory-game">
-          <div class="game-header">
-            <span class="game-score" id="memory-score">점수 0</span>
-            <button type="button" class="game-reset" data-reset="memory">다시 시작</button>
-          </div>
-          <div class="game-cards" id="memory-cards">
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
+          <div class="button-grid">
+            <button type="button" class="nav-btn" data-target="photo">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"/><path d="M21 16l-5.5-5.5a1 1 0 0 0-1.4 0L8 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              사진 보기
             </button>
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
+            <button type="button" class="nav-btn" data-target="video">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+              </span>
+              영상 보기
             </button>
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
+            <button type="button" class="nav-btn" data-target="game">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9h10v6H7z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="12" r="0.5" fill="currentColor"/><circle cx="15" cy="12" r="0.5" fill="currentColor"/><path d="M5 9a2 2 0 1 1 0 6" stroke="currentColor" stroke-width="2"/><path d="M19 9a2 2 0 1 0 0 6" stroke="currentColor" stroke-width="2"/></svg>
+              </span>
+              게임 하기
             </button>
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
-            </button>
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
-            </button>
-            <button type="button" class="memory-card" aria-label="카드">
-              <span class="card-front" aria-hidden="true"></span>
-              <span class="card-back" aria-hidden="true">?</span>
+            <button type="button" class="nav-btn" data-target="mood">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><path d="M8.5 15c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              기분 체크
             </button>
           </div>
-        </div>
 
-        <div class="game-panel" id="number-game">
-          <div class="game-header">
-            <span class="game-score" id="number-score">도전 중</span>
-            <button type="button" class="game-reset" data-reset="number">다시 시작</button>
-          </div>
-          <p class="game-question">1, 2, 3, 4 다음은?</p>
-          <div class="game-options" data-game="number">
-            <button type="button" class="game-option">4</button>
-            <button type="button" class="game-option" data-correct="true">5</button>
-            <button type="button" class="game-option">6</button>
-          </div>
-        </div>
-
-        <div class="game-panel" id="color-game">
-          <div class="game-header">
-            <span class="game-score" id="color-score">도전 중</span>
-            <button type="button" class="game-reset" data-reset="color">다시 시작</button>
-          </div>
-          <p class="game-question">빨간색을 골라 주세요.</p>
-          <div class="game-options" data-game="color">
-            <button type="button" class="game-option color-option">
-              <span class="swatch swatch-blue" aria-hidden="true"></span>
-              파란색
-            </button>
-            <button type="button" class="game-option color-option" data-correct="true">
-              <span class="swatch swatch-red" aria-hidden="true"></span>
-              빨간색
-            </button>
-            <button type="button" class="game-option color-option">
-              <span class="swatch swatch-green" aria-hidden="true"></span>
-              초록색
+          <div class="quick-row">
+            <div class="quick-box">
+              <span class="quick-label">오늘의 기분</span>
+              <span class="quick-value">😊 좋아요</span>
+            </div>
+            <button type="button" class="quick-box quick-help" id="help-btn">
+              <span class="quick-label">도움이 필요하면</span>
+              <span class="quick-value">🔔 도움 요청</span>
             </button>
           </div>
-        </div>
 
-        <p class="game-result" id="game-result" data-state="neutral">정답을 선택해 보세요.</p>
-      </section>
+          <div class="feature-box">
+            <p class="feature-title">Eldtree만의 특징</p>
+            <p>가족의 사진과 영상, 쉬운 게임, 그리고 AI 도우미가 함께 있는 돌봄 화면입니다.</p>
+          </div>
 
-      <section class="screen" id="mood">
-        <button type="button" class="back-btn" data-target="home">← 홈</button>
-        <h2>기분 체크</h2>
-        <div class="preview">오늘의 기분을 선택해 주세요.</div>
-        <p class="helper">작은 체크로 마음 상태를 남길 수 있어요.</p>
-      </section>
-    </main>
+          <div class="link-box">
+            <p class="link-label">자주 가는 곳</p>
+            <div class="shortcut-row">
+              <button type="button" class="shortcut-btn" data-url="https://example.com/family-blog">
+                <span aria-hidden="true">📷</span> 가족 블로그
+              </button>
+              <button type="button" class="shortcut-btn" data-url="https://example.com/weather">
+                <span aria-hidden="true">☀️</span> 오늘 날씨
+              </button>
+            </div>
 
-    <aside class="assistant-panel" aria-label="AI assistant">
-      <div class="assistant-header">AI 도우미</div>
-      <div class="assistant-bubble">무엇을 도와드릴까요?</div>
-      <div class="assistant-options">
-        <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
-        <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
-        <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
-        <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
+            <details class="custom-link">
+              <summary>다른 주소 직접 입력하기</summary>
+              <div class="link-controls">
+                <label class="sr-only" for="link-input">웹사이트 주소</label>
+                <input id="link-input" class="link-input" type="url" placeholder="https://example.com" />
+                <button type="button" class="link-btn" id="open-link-btn">열기</button>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="screen" id="photo">
+          <button type="button" class="back-btn" data-target="home">
+            <span aria-hidden="true">←</span> 홈으로
+          </button>
+          <h2>사진 보기</h2>
+          <div class="preview">가족 사진이 여기 표시됩니다.</div>
+          <p class="helper">가족과 함께한 사진을 크게 볼 수 있어요.</p>
+        </section>
+
+        <section class="screen" id="video">
+          <button type="button" class="back-btn" data-target="home">
+            <span aria-hidden="true">←</span> 홈으로
+          </button>
+          <h2>영상 보기</h2>
+          <div class="preview">짧은 영상이 재생됩니다.</div>
+          <p class="helper">가족의 따뜻한 메시지를 쉽게 들을 수 있어요.</p>
+        </section>
+
+        <section class="screen" id="game">
+          <button type="button" class="back-btn" data-target="home">
+            <span aria-hidden="true">←</span> 홈으로
+          </button>
+          <h2>게임 하기</h2>
+          <div class="game-tabs">
+            <button type="button" class="game-tab active" data-game="memory">같은 그림 찾기</button>
+            <button type="button" class="game-tab" data-game="number">숫자 순서</button>
+            <button type="button" class="game-tab" data-game="color">색깔 맞추기</button>
+          </div>
+
+          <div class="game-panel active" id="memory-game">
+            <p class="game-question">같은 그림을 고르세요.</p>
+            <div class="game-options">
+              <button type="button" class="game-option" data-correct="true">🌼</button>
+              <button type="button" class="game-option">🌲</button>
+              <button type="button" class="game-option">☀️</button>
+            </div>
+          </div>
+
+          <div class="game-panel" id="number-game">
+            <p class="game-question">1, 2, 3 다음은?</p>
+            <div class="game-options">
+              <button type="button" class="game-option">4</button>
+              <button type="button" class="game-option">7</button>
+              <button type="button" class="game-option">9</button>
+            </div>
+          </div>
+
+          <div class="game-panel" id="color-game">
+            <p class="game-question">빨간색을 고르세요.</p>
+            <div class="game-options">
+              <button type="button" class="game-option">🔵</button>
+              <button type="button" class="game-option" data-correct="true">🔴</button>
+              <button type="button" class="game-option">🟢</button>
+            </div>
+          </div>
+
+          <p class="game-result" id="game-result" role="status">정답을 선택해 보세요.</p>
+        </section>
+
+        <section class="screen" id="mood">
+          <button type="button" class="back-btn" data-target="home">
+            <span aria-hidden="true">←</span> 홈으로
+          </button>
+          <h2>기분 체크</h2>
+          <div class="mood-options">
+            <button type="button" class="mood-option" data-mood="great">😊<span>좋아요</span></button>
+            <button type="button" class="mood-option" data-mood="okay">😐<span>그냥 그래요</span></button>
+            <button type="button" class="mood-option" data-mood="low">😔<span>안 좋아요</span></button>
+          </div>
+          <p class="helper" id="mood-result">오늘의 기분을 선택해 주세요.</p>
+        </section>
       </div>
-      <p class="assistant-note">어르신이 원하는 곳으로 바로 이동할 수 있어요.</p>
-    </aside>
+
+      <aside class="assistant-panel" aria-label="AI 도우미">
+        <div class="assistant-header">
+          <span class="assistant-dot" aria-hidden="true"></span> AI 도우미
+        </div>
+        <div class="assistant-bubble">무엇을 도와드릴까요? 아래에서 골라주세요.</div>
+        <div class="assistant-options">
+          <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
+          <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
+          <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
+          <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
+        </div>
+        <p class="assistant-note">원하는 곳으로 바로 이동할 수 있어요.</p>
+      </aside>
+    </main>
 
     <script src="script.js"></script>
   </body>
