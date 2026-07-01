@@ -83,33 +83,74 @@
         </div>
 
         <div class="game-panel active" id="memory-game">
-          <p class="game-question">같은 그림을 고르세요.</p>
-          <div class="game-options">
-            <button type="button" class="game-option" data-correct="true">🌼</button>
-            <button type="button" class="game-option">🌲</button>
-            <button type="button" class="game-option">☀️</button>
+          <div class="game-header">
+            <span class="game-score" id="memory-score">점수 0</span>
+            <button type="button" class="game-reset" data-reset="memory">다시 시작</button>
+          </div>
+          <div class="game-cards" id="memory-cards">
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
+            <button type="button" class="memory-card" aria-label="카드">
+              <span class="card-front" aria-hidden="true"></span>
+              <span class="card-back" aria-hidden="true">?</span>
+            </button>
           </div>
         </div>
 
         <div class="game-panel" id="number-game">
-          <p class="game-question">1, 2, 3 다음은?</p>
-          <div class="game-options">
+          <div class="game-header">
+            <span class="game-score" id="number-score">도전 중</span>
+            <button type="button" class="game-reset" data-reset="number">다시 시작</button>
+          </div>
+          <p class="game-question">1, 2, 3, 4 다음은?</p>
+          <div class="game-options" data-game="number">
             <button type="button" class="game-option">4</button>
-            <button type="button" class="game-option">7</button>
-            <button type="button" class="game-option">9</button>
+            <button type="button" class="game-option" data-correct="true">5</button>
+            <button type="button" class="game-option">6</button>
           </div>
         </div>
 
         <div class="game-panel" id="color-game">
-          <p class="game-question">빨간색을 고르세요.</p>
-          <div class="game-options">
-            <button type="button" class="game-option">🔵</button>
-            <button type="button" class="game-option" data-correct="true">🔴</button>
-            <button type="button" class="game-option">🟢</button>
+          <div class="game-header">
+            <span class="game-score" id="color-score">도전 중</span>
+            <button type="button" class="game-reset" data-reset="color">다시 시작</button>
+          </div>
+          <p class="game-question">빨간색을 골라 주세요.</p>
+          <div class="game-options" data-game="color">
+            <button type="button" class="game-option color-option">
+              <span class="swatch swatch-blue" aria-hidden="true"></span>
+              파란색
+            </button>
+            <button type="button" class="game-option color-option" data-correct="true">
+              <span class="swatch swatch-red" aria-hidden="true"></span>
+              빨간색
+            </button>
+            <button type="button" class="game-option color-option">
+              <span class="swatch swatch-green" aria-hidden="true"></span>
+              초록색
+            </button>
           </div>
         </div>
 
-        <p class="game-result" id="game-result">정답을 선택해 보세요.</p>
+        <p class="game-result" id="game-result" data-state="neutral">정답을 선택해 보세요.</p>
       </section>
 
       <section class="screen" id="mood">
