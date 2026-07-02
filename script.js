@@ -1,107 +1,80 @@
-// Screen navigation
-document.querySelectorAll('[data-target]').forEach((button) => {
-  button.addEventListener('click', () => {
-    const targetId = button.getAttribute('data-target');
-    const screens = document.querySelectorAll('.screen');
-
-    screens.forEach((screen) => {
-      screen.classList.toggle('active', screen.id === targetId);
-    });
-
-    document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
-  });
-});
-
-// Game tabs
-document.querySelectorAll('.game-tab').forEach((tab) => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.game-tab').forEach((item) => item.classList.remove('active'));
-    tab.classList.add('active');
-
-    document.querySelectorAll('.game-panel').forEach((panel) => panel.classList.remove('active'));
-    document.getElementById(`${tab.dataset.game}-game`).classList.add('active');
-
-    document.querySelectorAll('.game-option').forEach((opt) => {
-      opt.classList.remove('is-correct', 'is-wrong');
-    });
-    document.getElementById('game-result').textContent = '정답을 선택해 보세요.';
-  });
-});
-
-// Game answers: clear color + text feedback, not text alone
-document.querySelectorAll('.game-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    const result = document.getElementById('game-result');
-    const panel = option.closest('.game-panel');
-
-    panel.querySelectorAll('.game-option').forEach((opt) => opt.classList.remove('is-correct', 'is-wrong'));
-
-    if (option.dataset.correct === 'true') {
-      option.classList.add('is-correct');
-      result.textContent = '✓ 맞았어요! 잘했어요.';
-    } else {
-      option.classList.add('is-wrong');
-      result.textContent = '다시 생각해 볼까요?';
-    }
-  });
-});
-
-// Mood check-in
-document.querySelectorAll('.mood-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    document.querySelectorAll('.mood-option').forEach((opt) => opt.classList.remove('selected'));
-    option.classList.add('selected');
-
-    const labels = {
-      great: '오늘 기분이 좋다고 알려주셨어요. 좋은 하루 보내세요!',
-      okay: '오늘 기분을 기록했어요.',
-      low: '오늘 기분이 안 좋으시군요. 가족에게 알려드릴까요?',
-    };
-    document.getElementById('mood-result').textContent = labels[option.dataset.mood] || '오늘의 기분을 선택해 주세요.';
-  });
-});
-
-// Open a URL safely in a new tab
-function openUrl(value) {
-  if (!value) return;
-  const normalizedValue = /^https?:\/\//i.test(value) ? value : `https://${value}`;
-  window.open(normalizedValue, '_blank', 'noopener,noreferrer');
+// ---------- screen navigation ----------
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+  const target = document.getElementById(id);
+  if (target) target.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
 
-// Preset shortcut buttons
-document.querySelectorAll('.shortcut-btn').forEach((button) => {
-  button.addEventListener('click', () => openUrl(button.dataset.url));
+document.querySelectorAll("[data-back]").forEach((btn) => {
+  btn.addEventListener("click", () => showScreen(btn.dataset.back));
 });
 
-// Custom URL input
-const linkInput = document.getElementById('link-input');
-const openLinkButton = document.getElementById('open-link-btn');
+// ---------- feature buttons -> generic placeholder page ----------
+const featureIcons = {
+  "사진 보기": "📷",
+  "영상 보기": "🎥",
+  "게임 하기": "🎮",
+};
 
-if (linkInput && openLinkButton) {
-  const openLink = () => openUrl(linkInput.value.trim());
-
-  openLinkButton.addEventListener('click', openLink);
-  linkInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      openLink();
-    }
+document.querySelectorAll(".btn-feature[data-target]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const label = btn.dataset.target;
+    document.getElementById("generic-title").textContent = label;
+    document.getElementById("generic-icon").textContent = featureIcons[label] || "✨";
+    document.getElementById("generic-badge").textContent = "준비 중";
+    showScreen("screen-generic");
   });
-}
+});
 
-// "글자 크게" text size toggle, persists for the session
-const textSizeBtn = document.getElementById('text-size-btn');
-if (textSizeBtn) {
-  textSizeBtn.addEventListener('click', () => {
-    const isLarge = document.documentElement.classList.toggle('text-xl');
-    textSizeBtn.setAttribute('aria-pressed', String(isLarge));
-  });
-}
+// ---------- mood check ----------
+const moodDisplay = document.getElementById("mood-display");
+const moodHint = document.getElementById("mood-hint");
 
-// Help request (placeholder hook for a real family-alert action)
-const helpBtn = document.getElementById('help-btn');
-if (helpBtn) {
-  helpBtn.addEventListener('click', () => {
-    helpBtn.querySelector('.quick-value').textContent = '🔔 요청을 보냈어요';
+document.getElementById("btn-mood-check").addEventListener("click", () => {
+  // reset previous selection state each time the screen opens
+  document.querySelectorAll(".mood-option").forEach((el) => el.classList.remove("selected"));
+  moodHint.textContent = "\u00A0";
+  showScreen("screen-mood");
+});
+
+document.querySelectorAll(".mood-option").forEach((option) => {
+  option.addEventListener("click", () => {
+    document.querySelectorAll(".mood-option").forEach((el) => el.classList.remove("selected"));
+    option.classList.add("selected");
+
+    const emoji = option.dataset.emoji;
+    const label = option.dataset.label;
+    moodHint.textContent = `${label}(으)로 저장할게요.`;
+
+    // update the home screen mood stat, then return home shortly after
+    moodDisplay.textContent = `${emoji} ${label}`;
+    setTimeout(() => showScreen("screen-home"), 550);
   });
-}
+});
+
+// ---------- SOS button (placeholder, increments help counter) ----------
+const helpCountEl = document.getElementById("help-count");
+let helpCount = 0;
+
+document.getElementById("btn-sos").addEventListener("click", () => {
+  helpCount += 1;
+  helpCountEl.textContent = `${helpCount}개`;
+});
+
+// ---------- daily message rotator (replaces the old link-open box) ----------
+const dailyMessages = [
+  "오늘 하루도 가족과 함께라서 든든해요.",
+  "잠깐 창밖을 보며 숨을 크게 쉬어 보세요.",
+  "물 한 잔 마시고 잠시 쉬어가도 좋아요.",
+  "오늘도 무사히 하루를 보내고 계세요.",
+  "필요할 땐 언제든 도움 요청 버튼을 눌러주세요.",
+];
+
+let messageIndex = 0;
+const messageEl = document.getElementById("daily-message");
+
+document.getElementById("btn-refresh-message").addEventListener("click", () => {
+  messageIndex = (messageIndex + 1) % dailyMessages.length;
+  messageEl.textContent = dailyMessages[messageIndex];
+});
