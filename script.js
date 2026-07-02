@@ -1,418 +1,80 @@
-:root {
-  --bg-cream: #fbf1e2;
-  --card-bg: #fffcf6;
-  --card-border: #f1e3c8;
-  --text-dark: #3a2b1c;
-  --text-brown: #8a5a34;
-  --text-muted: #9c8b74;
-  --pill-muted-bg: #f1e0c2;
-  --pill-muted-text: #6b4423;
-  --pill-soft-bg: #f7e6c8;
-  --pill-soft-text: #7a4c22;
-
-  --orange-1: #e8975a;
-  --orange-2: #cd7a41;
-  --orange-shadow: rgba(191, 116, 55, 0.35);
-
-  --red-1: #f0715f;
-  --red-2: #de4b3b;
-  --red-shadow: rgba(222, 75, 59, 0.35);
-
-  --radius-lg: 28px;
-  --radius-md: 22px;
-  --radius-sm: 16px;
+// ---------- screen navigation ----------
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+  const target = document.getElementById(id);
+  if (target) target.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
 
-* {
-  box-sizing: border-box;
-}
+document.querySelectorAll("[data-back]").forEach((btn) => {
+  btn.addEventListener("click", () => showScreen(btn.dataset.back));
+});
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
+// ---------- feature buttons -> generic placeholder page ----------
+const featureIcons = {
+  "사진 보기": "📷",
+  "영상 보기": "🎥",
+  "게임 하기": "🎮",
+};
 
-body {
-  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-cream);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-}
+document.querySelectorAll(".btn-feature[data-target]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const label = btn.dataset.target;
+    document.getElementById("generic-title").textContent = label;
+    document.getElementById("generic-icon").textContent = featureIcons[label] || "✨";
+    document.getElementById("generic-badge").textContent = "준비 중";
+    showScreen("screen-generic");
+  });
+});
 
-/* ---------- phone frame / main column ---------- */
-.phone-frame {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 560px;
-  padding: 40px 28px 60px;
-  min-height: 100vh;
-  background: var(--bg-cream);
-}
+// ---------- mood check ----------
+const moodDisplay = document.getElementById("mood-display");
+const moodHint = document.getElementById("mood-hint");
 
-/* ---------- screens (simple SPA-style show/hide) ---------- */
-.screen {
-  display: none;
-  animation: fade-in 0.25s ease;
-}
+document.getElementById("btn-mood-check").addEventListener("click", () => {
+  // reset previous selection state each time the screen opens
+  document.querySelectorAll(".mood-option").forEach((el) => el.classList.remove("selected"));
+  moodHint.textContent = "\u00A0";
+  showScreen("screen-mood");
+});
 
-.screen.active {
-  display: block;
-}
+document.querySelectorAll(".mood-option").forEach((option) => {
+  option.addEventListener("click", () => {
+    document.querySelectorAll(".mood-option").forEach((el) => el.classList.remove("selected"));
+    option.classList.add("selected");
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    const emoji = option.dataset.emoji;
+    const label = option.dataset.label;
+    moodHint.textContent = `${label}(으)로 저장할게요.`;
 
-/* ---------- top bar / pills ---------- */
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
-}
+    // update the home screen mood stat, then return home shortly after
+    moodDisplay.textContent = `${emoji} ${label}`;
+    setTimeout(() => showScreen("screen-home"), 550);
+  });
+});
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  border: none;
-  cursor: default;
-}
+// ---------- SOS button (placeholder, increments help counter) ----------
+const helpCountEl = document.getElementById("help-count");
+let helpCount = 0;
 
-.pill-muted {
-  background: var(--pill-muted-bg);
-  color: var(--pill-muted-text);
-}
+document.getElementById("btn-sos").addEventListener("click", () => {
+  helpCount += 1;
+  helpCountEl.textContent = `${helpCount}개`;
+});
 
-.pill-soft {
-  background: var(--pill-soft-bg);
-  color: var(--pill-soft-text);
-}
+// ---------- daily message rotator (replaces the old link-open box) ----------
+const dailyMessages = [
+  "오늘 하루도 가족과 함께라서 든든해요.",
+  "잠깐 창밖을 보며 숨을 크게 쉬어 보세요.",
+  "물 한 잔 마시고 잠시 쉬어가도 좋아요.",
+  "오늘도 무사히 하루를 보내고 계세요.",
+  "필요할 땐 언제든 도움 요청 버튼을 눌러주세요.",
+];
 
-.btn-back {
-  cursor: pointer;
-  font-family: inherit;
-}
+let messageIndex = 0;
+const messageEl = document.getElementById("daily-message");
 
-.btn-back:active {
-  transform: scale(0.96);
-}
-
-/* ---------- headings ---------- */
-.greeting {
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--text-dark);
-  margin: 0 0 12px;
-  letter-spacing: -0.5px;
-}
-
-.greeting-sm {
-  font-size: 26px;
-}
-
-.subtitle {
-  font-size: 16px;
-  color: var(--text-muted);
-  margin: 0 0 28px;
-  line-height: 1.5;
-}
-
-.section-title {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text-brown);
-  margin: 32px 0 14px;
-}
-
-/* ---------- stat mini row ---------- */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 28px;
-}
-
-.stat-mini {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
-  padding: 18px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
-}
-
-.stat-mini-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.stat-mini-value {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text-dark);
-}
-
-/* ---------- feature buttons ---------- */
-.feature-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.btn-feature {
-  font-family: inherit;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 22px 18px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 19px;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, var(--orange-1), var(--orange-2));
-  box-shadow: 0 10px 22px var(--orange-shadow);
-  cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.btn-feature:active {
-  transform: scale(0.97);
-  box-shadow: 0 6px 14px var(--orange-shadow);
-}
-
-.feature-icon {
-  font-size: 24px;
-}
-
-/* ---------- SOS button ---------- */
-.btn-sos {
-  width: 100%;
-  font-family: inherit;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 24px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-  background: linear-gradient(135deg, var(--red-1), var(--red-2));
-  box-shadow: 0 12px 24px var(--red-shadow);
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: transform 0.12s ease;
-}
-
-.btn-sos:active {
-  transform: scale(0.98);
-}
-
-.sos-badge {
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--red-2);
-  font-size: 13px;
-  font-weight: 800;
-  padding: 5px 9px;
-  border-radius: 8px;
-  letter-spacing: 0.5px;
-}
-
-/* ---------- message card (replaces 링크 열기) ---------- */
-.message-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: 22px 22px 24px;
-  box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
-}
-
-.message-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.message-card-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text-brown);
-}
-
-.btn-refresh {
-  border: none;
-  background: var(--pill-muted-bg);
-  color: var(--pill-muted-text);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 17px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.btn-refresh:active {
-  transform: rotate(90deg);
-}
-
-.message-card-text {
-  font-size: 16px;
-  color: var(--text-dark);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ---------- vitals ---------- */
-.vitals-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.vital-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
-  padding: 22px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
-}
-
-.vital-icon {
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-
-.vital-value {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--text-brown);
-}
-
-.vital-unit {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.vital-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-/* ---------- mood check screen ---------- */
-.mood-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 18px;
-}
-
-.mood-option {
-  font-family: inherit;
-  background: var(--card-bg);
-  border: 2px solid var(--card-border);
-  border-radius: var(--radius-md);
-  padding: 20px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-}
-
-.mood-option:active {
-  transform: scale(0.95);
-}
-
-.mood-option.selected {
-  border-color: var(--orange-2);
-  background: #fdf1e2;
-}
-
-.mood-emoji {
-  font-size: 32px;
-}
-
-.mood-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-dark);
-}
-
-.mood-hint {
-  text-align: center;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-brown);
-  min-height: 24px;
-}
-
-/* ---------- generic placeholder screen ---------- */
-.generic-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 40px 10px 20px;
-}
-
-.generic-icon {
-  font-size: 56px;
-  margin-bottom: 18px;
-}
-
-.btn-generic-back {
-  margin-top: 18px;
-  justify-content: center;
-  width: 100%;
-}
-
-/* ---------- responsive ---------- */
-@media (max-width: 420px) {
-  .greeting {
-    font-size: 28px;
-  }
-
-  .phone-frame {
-    padding: 28px 18px 48px;
-  }
-
-  .mood-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ---------- accessibility ---------- */
-button:focus-visible,
-.btn-back:focus-visible {
-  outline: 3px solid #8a5a34;
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
+document.getElementById("btn-refresh-message").addEventListener("click", () => {
+  messageIndex = (messageIndex + 1) % dailyMessages.length;
+  messageEl.textContent = dailyMessages[messageIndex];
+});
