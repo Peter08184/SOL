@@ -1,191 +1,151 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eldtree</title>
-    <meta name="description" content="어르신이 쉽게 사용할 수 있는 가족 연계형 화면 초안" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="rings" aria-hidden="true"></div>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가족과 함께</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="24" cy="24" r="6" fill="currentColor"/>
-          </svg>
-        </span>
-        Eldtree
+  <div class="phone-frame">
+
+    <!-- ============ HOME SCREEN ============ -->
+    <section class="screen active" id="screen-home">
+      <header class="top-bar">
+        <span class="pill pill-muted">홈</span>
+        <span class="pill pill-soft">오늘도 편안하게</span>
+      </header>
+
+      <h1 class="greeting">안녕하세요, 가족님</h1>
+      <p class="subtitle">가족과 함께 쉬운 화면으로 편하게 이동해 보세요.</p>
+
+      <div class="stat-row">
+        <div class="stat-mini">
+          <span class="stat-mini-label">오늘의 기분</span>
+          <span class="stat-mini-value" id="mood-display">😐 보통</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">도움 요청</span>
+          <span class="stat-mini-value" id="help-count">0개</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">최근 사진</span>
+          <span class="stat-mini-value">0장</span>
+        </div>
       </div>
-      <button type="button" class="text-size-btn" id="text-size-btn" aria-pressed="false">
-        <span aria-hidden="true">A+</span> 글자 크게
+
+      <div class="feature-grid">
+        <button class="btn-feature" data-target="사진 보기" data-icon="📷">
+          <span class="feature-icon">📷</span>
+          <span>사진 보기</span>
+        </button>
+        <button class="btn-feature" data-target="영상 보기" data-icon="🎥">
+          <span class="feature-icon">🎥</span>
+          <span>영상 보기</span>
+        </button>
+        <button class="btn-feature" data-target="게임 하기" data-icon="🎮">
+          <span class="feature-icon">🎮</span>
+          <span>게임 하기</span>
+        </button>
+        <button class="btn-feature" id="btn-mood-check">
+          <span class="feature-icon">💬</span>
+          <span>기분 체크</span>
+        </button>
+      </div>
+
+      <button class="btn-sos" id="btn-sos">
+        <span class="sos-badge">SOS</span>
+        <span>도움 요청</span>
       </button>
-    </header>
 
-    <main class="page">
-      <div class="screen-stack">
-        <section class="screen active" id="home">
-          <p class="chip">홈</p>
-          <h1>안녕하세요</h1>
-          <p class="subtitle">원하는 것을 큰 버튼으로 골라보세요</p>
-
-          <div class="button-grid">
-            <button type="button" class="nav-btn" data-target="photo">
-              <span class="nav-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"/><path d="M21 16l-5.5-5.5a1 1 0 0 0-1.4 0L8 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              사진 보기
-            </button>
-            <button type="button" class="nav-btn" data-target="video">
-              <span class="nav-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
-              </span>
-              영상 보기
-            </button>
-            <button type="button" class="nav-btn" data-target="game">
-              <span class="nav-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 9h10v6H7z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="12" r="0.5" fill="currentColor"/><circle cx="15" cy="12" r="0.5" fill="currentColor"/><path d="M5 9a2 2 0 1 1 0 6" stroke="currentColor" stroke-width="2"/><path d="M19 9a2 2 0 1 0 0 6" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              게임 하기
-            </button>
-            <button type="button" class="nav-btn" data-target="mood">
-              <span class="nav-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><path d="M8.5 15c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              기분 체크
-            </button>
-          </div>
-
-          <div class="quick-row">
-            <div class="quick-box">
-              <span class="quick-label">오늘의 기분</span>
-              <span class="quick-value">😊 좋아요</span>
-            </div>
-            <button type="button" class="quick-box quick-help" id="help-btn">
-              <span class="quick-label">도움이 필요하면</span>
-              <span class="quick-value">🔔 도움 요청</span>
-            </button>
-          </div>
-
-          <div class="feature-box">
-            <p class="feature-title">Eldtree만의 특징</p>
-            <p>가족의 사진과 영상, 쉬운 게임, 그리고 AI 도우미가 함께 있는 돌봄 화면입니다.</p>
-          </div>
-
-          <div class="link-box">
-            <p class="link-label">자주 가는 곳</p>
-            <div class="shortcut-row">
-              <button type="button" class="shortcut-btn" data-url="https://example.com/family-blog">
-                <span aria-hidden="true">📷</span> 가족 블로그
-              </button>
-              <button type="button" class="shortcut-btn" data-url="https://example.com/weather">
-                <span aria-hidden="true">☀️</span> 오늘 날씨
-              </button>
-            </div>
-
-            <details class="custom-link">
-              <summary>다른 주소 직접 입력하기</summary>
-              <div class="link-controls">
-                <label class="sr-only" for="link-input">웹사이트 주소</label>
-                <input id="link-input" class="link-input" type="url" placeholder="https://example.com" />
-                <button type="button" class="link-btn" id="open-link-btn">열기</button>
-              </div>
-            </details>
-          </div>
-        </section>
-
-        <section class="screen" id="photo">
-          <button type="button" class="back-btn" data-target="home">
-            <span aria-hidden="true">←</span> 홈으로
-          </button>
-          <h2>사진 보기</h2>
-          <div class="preview">가족 사진이 여기 표시됩니다.</div>
-          <p class="helper">가족과 함께한 사진을 크게 볼 수 있어요.</p>
-        </section>
-
-        <section class="screen" id="video">
-          <button type="button" class="back-btn" data-target="home">
-            <span aria-hidden="true">←</span> 홈으로
-          </button>
-          <h2>영상 보기</h2>
-          <div class="preview">짧은 영상이 재생됩니다.</div>
-          <p class="helper">가족의 따뜻한 메시지를 쉽게 들을 수 있어요.</p>
-        </section>
-
-        <section class="screen" id="game">
-          <button type="button" class="back-btn" data-target="home">
-            <span aria-hidden="true">←</span> 홈으로
-          </button>
-          <h2>게임 하기</h2>
-          <div class="game-tabs">
-            <button type="button" class="game-tab active" data-game="memory">같은 그림 찾기</button>
-            <button type="button" class="game-tab" data-game="number">숫자 순서</button>
-            <button type="button" class="game-tab" data-game="color">색깔 맞추기</button>
-          </div>
-
-          <div class="game-panel active" id="memory-game">
-            <p class="game-question">같은 그림을 고르세요.</p>
-            <div class="game-options">
-              <button type="button" class="game-option" data-correct="true">🌼</button>
-              <button type="button" class="game-option">🌲</button>
-              <button type="button" class="game-option">☀️</button>
-            </div>
-          </div>
-
-          <div class="game-panel" id="number-game">
-            <p class="game-question">1, 2, 3 다음은?</p>
-            <div class="game-options">
-              <button type="button" class="game-option">4</button>
-              <button type="button" class="game-option">7</button>
-              <button type="button" class="game-option">9</button>
-            </div>
-          </div>
-
-          <div class="game-panel" id="color-game">
-            <p class="game-question">빨간색을 고르세요.</p>
-            <div class="game-options">
-              <button type="button" class="game-option">🔵</button>
-              <button type="button" class="game-option" data-correct="true">🔴</button>
-              <button type="button" class="game-option">🟢</button>
-            </div>
-          </div>
-
-          <p class="game-result" id="game-result" role="status">정답을 선택해 보세요.</p>
-        </section>
-
-        <section class="screen" id="mood">
-          <button type="button" class="back-btn" data-target="home">
-            <span aria-hidden="true">←</span> 홈으로
-          </button>
-          <h2>기분 체크</h2>
-          <div class="mood-options">
-            <button type="button" class="mood-option" data-mood="great">😊<span>좋아요</span></button>
-            <button type="button" class="mood-option" data-mood="okay">😐<span>그냥 그래요</span></button>
-            <button type="button" class="mood-option" data-mood="low">😔<span>안 좋아요</span></button>
-          </div>
-          <p class="helper" id="mood-result">오늘의 기분을 선택해 주세요.</p>
-        </section>
+      <div class="message-card">
+        <div class="message-card-head">
+          <span class="message-card-title">오늘의 한마디</span>
+          <button class="btn-refresh" id="btn-refresh-message" aria-label="다른 메시지 보기">↻</button>
+        </div>
+        <p class="message-card-text" id="daily-message">오늘 하루도 가족과 함께라서 든든해요.</p>
       </div>
 
-      <aside class="assistant-panel" aria-label="AI 도우미">
-        <div class="assistant-header">
-          <span class="assistant-dot" aria-hidden="true"></span> AI 도우미
+      <h2 class="section-title">오늘의 현황</h2>
+      <div class="vitals-row">
+        <div class="vital-card">
+          <span class="vital-icon">❤️</span>
+          <span class="vital-value">72</span>
+          <span class="vital-unit">bpm</span>
+          <span class="vital-label">심박수</span>
         </div>
-        <div class="assistant-bubble">무엇을 도와드릴까요? 아래에서 골라주세요.</div>
-        <div class="assistant-options">
-          <button type="button" class="assistant-btn" data-target="photo">사진 보기</button>
-          <button type="button" class="assistant-btn" data-target="video">영상 보기</button>
-          <button type="button" class="assistant-btn" data-target="game">게임 하기</button>
-          <button type="button" class="assistant-btn" data-target="mood">기분 체크</button>
+        <div class="vital-card">
+          <span class="vital-icon">🦶</span>
+          <span class="vital-value">3,241</span>
+          <span class="vital-unit">걸음</span>
+          <span class="vital-label">오늘 활동</span>
         </div>
-        <p class="assistant-note">원하는 곳으로 바로 이동할 수 있어요.</p>
-      </aside>
-    </main>
+        <div class="vital-card">
+          <span class="vital-icon">😴</span>
+          <span class="vital-value">7.5</span>
+          <span class="vital-unit">시간</span>
+          <span class="vital-label">수면</span>
+        </div>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
-  </body>
+    <!-- ============ MOOD CHECK SCREEN ============ -->
+    <section class="screen" id="screen-mood">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft">기분 체크</span>
+      </header>
+
+      <h1 class="greeting greeting-sm">오늘 기분이 어떠세요?</h1>
+      <p class="subtitle">가장 가까운 마음을 골라 주세요.</p>
+
+      <div class="mood-grid">
+        <button class="mood-option" data-emoji="😄" data-label="아주 좋음">
+          <span class="mood-emoji">😄</span>
+          <span class="mood-label">아주 좋음</span>
+        </button>
+        <button class="mood-option" data-emoji="🙂" data-label="좋음">
+          <span class="mood-emoji">🙂</span>
+          <span class="mood-label">좋음</span>
+        </button>
+        <button class="mood-option" data-emoji="😐" data-label="보통">
+          <span class="mood-emoji">😐</span>
+          <span class="mood-label">보통</span>
+        </button>
+        <button class="mood-option" data-emoji="😟" data-label="별로">
+          <span class="mood-emoji">😟</span>
+          <span class="mood-label">별로</span>
+        </button>
+        <button class="mood-option" data-emoji="😢" data-label="슬픔">
+          <span class="mood-emoji">😢</span>
+          <span class="mood-label">슬픔</span>
+        </button>
+      </div>
+
+      <p class="mood-hint" id="mood-hint">&nbsp;</p>
+    </section>
+
+    <!-- ============ GENERIC PLACEHOLDER SCREEN ============ -->
+    <section class="screen" id="screen-generic">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft" id="generic-badge">준비 중</span>
+      </header>
+
+      <div class="generic-body">
+        <span class="generic-icon" id="generic-icon">📷</span>
+        <h1 class="greeting greeting-sm" id="generic-title">사진 보기</h1>
+        <p class="subtitle">이 기능은 아직 준비 중이에요.<br />곧 만나요!</p>
+        <button class="btn-feature btn-generic-back" data-back="screen-home">홈으로 돌아가기</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
