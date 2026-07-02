@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가족과 함께</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="phone-frame">
+
+    <!-- ============ HOME SCREEN ============ -->
+    <section class="screen active" id="screen-home">
+      <header class="top-bar">
+        <span class="pill pill-muted">홈</span>
+        <span class="pill pill-soft">오늘도 편안하게</span>
+      </header>
+
+      <h1 class="greeting">안녕하세요, 가족님</h1>
+      <p class="subtitle">가족과 함께 쉬운 화면으로 편하게 이동해 보세요.</p>
+
+      <div class="stat-row">
+        <div class="stat-mini">
+          <span class="stat-mini-label">오늘의 기분</span>
+          <span class="stat-mini-value" id="mood-display">😐 보통</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">도움 요청</span>
+          <span class="stat-mini-value" id="help-count">0개</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">최근 사진</span>
+          <span class="stat-mini-value">0장</span>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <button class="btn-feature" data-target="사진 보기" data-icon="📷">
+          <span class="feature-icon">📷</span>
+          <span>사진 보기</span>
+        </button>
+        <button class="btn-feature" data-target="영상 보기" data-icon="🎥">
+          <span class="feature-icon">🎥</span>
+          <span>영상 보기</span>
+        </button>
+        <button class="btn-feature" data-target="게임 하기" data-icon="🎮">
+          <span class="feature-icon">🎮</span>
+          <span>게임 하기</span>
+        </button>
+        <button class="btn-feature" id="btn-mood-check">
+          <span class="feature-icon">💬</span>
+          <span>기분 체크</span>
+        </button>
+      </div>
+
+      <button class="btn-sos" id="btn-sos">
+        <span class="sos-badge">SOS</span>
+        <span>도움 요청</span>
+      </button>
+
+      <div class="message-card">
+        <div class="message-card-head">
+          <span class="message-card-title">오늘의 한마디</span>
+          <button class="btn-refresh" id="btn-refresh-message" aria-label="다른 메시지 보기">↻</button>
+        </div>
+        <p class="message-card-text" id="daily-message">오늘 하루도 가족과 함께라서 든든해요.</p>
+      </div>
+
+      <h2 class="section-title">오늘의 현황</h2>
+      <div class="vitals-row">
+        <div class="vital-card">
+          <span class="vital-icon">❤️</span>
+          <span class="vital-value">72</span>
+          <span class="vital-unit">bpm</span>
+          <span class="vital-label">심박수</span>
+        </div>
+        <div class="vital-card">
+          <span class="vital-icon">🦶</span>
+          <span class="vital-value">3,241</span>
+          <span class="vital-unit">걸음</span>
+          <span class="vital-label">오늘 활동</span>
+        </div>
+        <div class="vital-card">
+          <span class="vital-icon">😴</span>
+          <span class="vital-value">7.5</span>
+          <span class="vital-unit">시간</span>
+          <span class="vital-label">수면</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MOOD CHECK SCREEN ============ -->
+    <section class="screen" id="screen-mood">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft">기분 체크</span>
+      </header>
+
+      <h1 class="greeting greeting-sm">오늘 기분이 어떠세요?</h1>
+      <p class="subtitle">가장 가까운 마음을 골라 주세요.</p>
+
+      <div class="mood-grid">
+        <button class="mood-option" data-emoji="😄" data-label="아주 좋음">
+          <span class="mood-emoji">😄</span>
+          <span class="mood-label">아주 좋음</span>
+        </button>
+        <button class="mood-option" data-emoji="🙂" data-label="좋음">
+          <span class="mood-emoji">🙂</span>
+          <span class="mood-label">좋음</span>
+        </button>
+        <button class="mood-option" data-emoji="😐" data-label="보통">
+          <span class="mood-emoji">😐</span>
+          <span class="mood-label">보통</span>
+        </button>
+        <button class="mood-option" data-emoji="😟" data-label="별로">
+          <span class="mood-emoji">😟</span>
+          <span class="mood-label">별로</span>
+        </button>
+        <button class="mood-option" data-emoji="😢" data-label="슬픔">
+          <span class="mood-emoji">😢</span>
+          <span class="mood-label">슬픔</span>
+        </button>
+      </div>
+
+      <p class="mood-hint" id="mood-hint">&nbsp;</p>
+    </section>
+
+    <!-- ============ GENERIC PLACEHOLDER SCREEN ============ -->
+    <section class="screen" id="screen-generic">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft" id="generic-badge">준비 중</span>
+      </header>
+
+      <div class="generic-body">
+        <span class="generic-icon" id="generic-icon">📷</span>
+        <h1 class="greeting greeting-sm" id="generic-title">사진 보기</h1>
+        <p class="subtitle">이 기능은 아직 준비 중이에요.<br />곧 만나요!</p>
+        <button class="btn-feature btn-generic-back" data-back="screen-home">홈으로 돌아가기</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
