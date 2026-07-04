@@ -82,7 +82,6 @@
 }
 
 :root {
-  /* SOS 버튼은 테마와 무관하게 항상 빨간색으로 고정 (안전/인지 일관성) */
   --red-1: #f0715f;
   --red-2: #de4b3b;
   --red-shadow: rgba(222, 75, 59, 0.35);
@@ -124,19 +123,11 @@ body {
   transition: background 0.3s ease;
 }
 
-.bg-shape-circle {
-  border-radius: 50%;
-}
+.bg-shape-circle { border-radius: 50%; }
+.bg-shape-square { border-radius: 22%; }
+.bg-shape-triangle { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
 
-.bg-shape-square {
-  border-radius: 22%;
-}
-
-.bg-shape-triangle {
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-/* ---------- phone frame / main column ---------- */
+/* ---------- phone frame ---------- */
 .phone-frame {
   position: relative;
   z-index: 1;
@@ -146,7 +137,7 @@ body {
   min-height: 100vh;
 }
 
-/* ---------- screens (simple SPA-style show/hide) ---------- */
+/* ---------- screens ---------- */
 .screen {
   display: none;
   animation: fade-in 0.25s ease;
@@ -189,24 +180,11 @@ body {
   color: var(--pill-soft-text);
 }
 
-.pill-muted {
-  background: var(--pill-muted-bg);
-  color: var(--pill-muted-text);
-}
+.pill-muted { background: var(--pill-muted-bg); color: var(--pill-muted-text); }
+.pill-soft { background: var(--pill-soft-bg); color: var(--pill-soft-text); }
 
-.pill-soft {
-  background: var(--pill-soft-bg);
-  color: var(--pill-soft-text);
-}
-
-.btn-back {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.btn-back:active {
-  transform: scale(0.96);
-}
+.btn-back { cursor: pointer; font-family: inherit; }
+.btn-back:active { transform: scale(0.96); }
 
 .icon-btn {
   width: 44px;
@@ -224,9 +202,7 @@ body {
   transition: transform 0.12s ease;
 }
 
-.icon-btn:active {
-  transform: scale(0.92) rotate(20deg);
-}
+.icon-btn:active { transform: scale(0.92) rotate(20deg); }
 
 /* ---------- headings ---------- */
 .greeting {
@@ -237,9 +213,7 @@ body {
   letter-spacing: -0.5px;
 }
 
-.greeting-sm {
-  font-size: 26px;
-}
+.greeting-sm { font-size: 26px; }
 
 .subtitle {
   font-size: 16px;
@@ -274,17 +248,8 @@ body {
   box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
 }
 
-.stat-mini-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.stat-mini-value {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text-dark);
-}
+.stat-mini-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.stat-mini-value { font-size: 19px; font-weight: 800; color: var(--text-dark); }
 
 /* ---------- feature buttons ---------- */
 .feature-grid {
@@ -316,9 +281,7 @@ body {
   box-shadow: 0 6px 14px var(--accent-shadow);
 }
 
-.feature-icon {
-  font-size: 24px;
-}
+.feature-icon { font-size: 24px; }
 
 /* ---------- SOS button ---------- */
 .btn-sos {
@@ -341,9 +304,7 @@ body {
   transition: transform 0.12s ease;
 }
 
-.btn-sos:active {
-  transform: scale(0.98);
-}
+.btn-sos:active { transform: scale(0.98); }
 
 .sos-badge {
   background: rgba(255, 255, 255, 0.9);
@@ -371,11 +332,7 @@ body {
   margin-bottom: 10px;
 }
 
-.message-card-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text-brown);
-}
+.message-card-title { font-size: 16px; font-weight: 800; color: var(--text-brown); }
 
 .btn-refresh {
   border: none;
@@ -389,16 +346,9 @@ body {
   transition: transform 0.2s ease;
 }
 
-.btn-refresh:active {
-  transform: rotate(90deg);
-}
+.btn-refresh:active { transform: rotate(90deg); }
 
-.message-card-text {
-  font-size: 16px;
-  color: var(--text-dark);
-  line-height: 1.6;
-  margin: 0;
-}
+.message-card-text { font-size: 16px; color: var(--text-dark); line-height: 1.6; margin: 0; }
 
 /* ---------- vitals ---------- */
 .vitals-row {
@@ -419,28 +369,10 @@ body {
   box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
 }
 
-.vital-icon {
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-
-.vital-value {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--text-brown);
-}
-
-.vital-unit {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.vital-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-dark);
-}
+.vital-icon { font-size: 24px; margin-bottom: 6px; }
+.vital-value { font-size: 22px; font-weight: 800; color: var(--text-brown); }
+.vital-unit { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+.vital-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
 
 /* ---------- mood check screen ---------- */
 .mood-grid {
@@ -464,24 +396,10 @@ body {
   transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
-.mood-option:active {
-  transform: scale(0.95);
-}
-
-.mood-option.selected {
-  border-color: var(--accent-2);
-  background: var(--pill-soft-bg);
-}
-
-.mood-emoji {
-  font-size: 32px;
-}
-
-.mood-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-dark);
-}
+.mood-option:active { transform: scale(0.95); }
+.mood-option.selected { border-color: var(--accent-2); background: var(--pill-soft-bg); }
+.mood-emoji { font-size: 32px; }
+.mood-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
 
 .mood-hint {
   text-align: center;
@@ -491,51 +409,56 @@ body {
   min-height: 24px;
 }
 
-/* ---------- photo screen ---------- */
-.photo-special-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 8px;
-}
-
-.special-card {
-  border-radius: var(--radius-md);
-  padding: 18px;
-  min-height: 110px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* ---------- 사진 히어로 카드 (추천 / 1년전 오늘, 애플 사진 앱 스타일) ---------- */
+.photo-hero {
+  position: relative;
+  height: 200px;
+  border-radius: var(--radius-lg);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--pill-muted-bg);
+  overflow: hidden;
   cursor: pointer;
+  margin-bottom: 8px;
+  box-shadow: 0 6px 16px rgba(180, 140, 90, 0.06);
   transition: transform 0.12s ease;
 }
 
-.special-card:active {
-  transform: scale(0.97);
+.photo-hero:active { transform: scale(0.98); }
+
+.photo-hero.hidden { display: none; }
+
+.photo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.6));
 }
 
-.special-card h3 {
-  margin: 0;
-  font-size: 16px;
-  color: var(--text-dark);
+.photo-hero-overlay {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  z-index: 1;
+  color: #fff;
 }
 
-.special-card p {
-  margin: 0;
+.photo-hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.photo-hero-subtitle {
   font-size: 13px;
-  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 0;
+  opacity: 0.92;
 }
 
-.special-card.recommend {
-  background: linear-gradient(135deg, #fff2d8, #ffe2b5);
-  border: 2px solid #ffc96b;
-}
-
-.special-card.memory {
-  background: linear-gradient(135deg, #e8f2ff, #cfe4ff);
-  border: 2px solid #8ab8ff;
-}
-
+/* ---------- photo / video 공용 화면 ---------- */
 .album-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -544,7 +467,6 @@ body {
 }
 
 .album-card {
-  position: relative;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
@@ -554,114 +476,362 @@ body {
   transition: transform 0.12s ease;
 }
 
-.album-card:active {
-  transform: scale(0.97);
-}
+.album-card:active { transform: scale(0.97); }
 
 .album-cover {
   aspect-ratio: 1;
   display: grid;
-  gap: 4px;
-  padding: 6px;
-  background: var(--pill-muted-bg);
-}
-
-.layout-1 {
   grid-template-columns: 1fr 1fr;
-}
-
-.layout-1 img:first-child {
-  grid-column: span 2;
-}
-
-.layout-2 {
-  grid-template-columns: 2fr 1fr;
-}
-
-.layout-3 {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1fr 1fr;
+  background: var(--pill-muted-bg);
 }
 
 .album-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  display: block;
 }
 
-.album-info {
-  padding: 14px;
-}
+.album-info { padding: 12px 14px; }
+.album-name { font-weight: 800; font-size: 15px; color: var(--text-dark); margin-bottom: 2px; }
+.album-count { color: var(--text-muted); font-size: 12px; }
 
-.album-name {
-  font-weight: 800;
-  font-size: 15px;
-  color: var(--text-dark);
-  margin-bottom: 4px;
-}
-
-.album-count {
-  color: var(--text-muted);
-  font-size: 13px;
-}
-
-.upload-photo-btn {
+.upload-media-btn {
   width: 100%;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-#photo-upload {
-  display: none;
-}
+#photo-upload, #video-upload { display: none; }
 
-.album-view {
-  display: none;
-}
+.album-view { display: none; }
+.album-view.active { display: block; }
 
-.album-view.active {
-  display: block;
-}
-
-.photo-mosaic {
+/* ---------- 앨범 안 사진/영상 모자이크 ---------- */
+.media-mosaic {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-top: 8px;
 }
 
-.photo-mosaic img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
+.media-mosaic .mosaic-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 15px;
+  padding: 48px 10px;
 }
 
-.photo-mosaic img:nth-child(3n+1) {
+.photo-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--pill-muted-bg);
+}
+
+.photo-item:nth-child(3n+1) {
   grid-row: span 2;
 }
 
-.album-delete {
+.photo-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.photo-menu-btn,
+.photo-delete-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
   border: none;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  padding: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1;
   cursor: pointer;
-  z-index: 10;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background 0.12s ease;
 }
 
-.album-delete:active {
-  background: var(--red-2);
+.photo-menu-btn { left: 8px; }
+.photo-delete-btn { right: 8px; }
+.photo-menu-btn:active { background: rgba(0, 0, 0, 0.7); }
+.photo-delete-btn:active { background: var(--red-2); }
+
+.media-play-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.media-play-badge span {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+/* ---------- 스토리형 뷰어 (사진 추천/1년전 전용) ---------- */
+.story-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  background: #000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-viewer.active { display: flex; }
+
+.story-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.story-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  transition: opacity 0.6s ease;
+}
+
+.story-slide img,
+.story-slide video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+  display: block;
+}
+
+.story-slide.active { opacity: 1; }
+
+.story-progress {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.story-segment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.story-segment-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #fff;
+}
+
+.story-segment-fill.done { width: 100%; }
+.story-segment-fill.filling { animation: story-fill linear forwards; animation-duration: 3.5s; }
+
+@keyframes story-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* ---------- 앨범 관리 시트 ---------- */
+.manage-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pill-muted-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.manage-row-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.manage-row-delete {
+  border: none;
+  background: none;
+  color: var(--red-2);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.manage-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.album-add-row {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+
+.album-add-input {
+  flex: 1;
+  border: 2px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  background: var(--card-bg);
+  color: var(--text-dark);
+}
+
+.album-add-btn {
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.album-add-btn:active { transform: scale(0.97); }
+
+/* ---------- 전체화면 뷰어 ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10, 8, 6, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox.active { display: flex; }
+
+.lightbox-content img,
+.lightbox-content video {
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.lightbox-close:active { transform: scale(0.92); }
+
+/* ---------- 앨범 이동 선택 시트 ---------- */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-overlay.active { display: flex; }
+
+.sheet {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card-bg);
+  border-radius: 24px 24px 0 0;
+  padding: 22px 20px 30px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.sheet-title {
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--text-dark);
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.sheet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.sheet-option {
+  font-family: inherit;
+  background: var(--pill-muted-bg);
+  color: var(--pill-muted-text);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sheet-option:active { transform: scale(0.98); }
+
+.sheet-cancel {
+  width: 100%;
+  font-family: inherit;
+  background: none;
+  border: 2px solid var(--card-border);
+  color: var(--text-muted);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ---------- settings / theme screen ---------- */
@@ -685,14 +855,8 @@ body {
   transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
-.theme-option:active {
-  transform: scale(0.98);
-}
-
-.theme-option.selected {
-  border-color: var(--accent-2);
-  background: var(--pill-soft-bg);
-}
+.theme-option:active { transform: scale(0.98); }
+.theme-option.selected { border-color: var(--accent-2); background: var(--pill-soft-bg); }
 
 .theme-swatch {
   width: 40px;
@@ -702,31 +866,13 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.theme-swatch-orange {
-  background: linear-gradient(135deg, #e8975a, #cd7a41);
-}
+.theme-swatch-orange { background: linear-gradient(135deg, #e8975a, #cd7a41); }
+.theme-swatch-blue { background: linear-gradient(135deg, #6bb3e0, #3f8fc4); }
+.theme-swatch-green { background: linear-gradient(135deg, #8bb85e, #679b3c); }
+.theme-swatch-purple { background: linear-gradient(135deg, #b48ee0, #9265c4); }
+.theme-swatch-pink { background: linear-gradient(135deg, #ef8fac, #dd6289); }
 
-.theme-swatch-blue {
-  background: linear-gradient(135deg, #6bb3e0, #3f8fc4);
-}
-
-.theme-swatch-green {
-  background: linear-gradient(135deg, #8bb85e, #679b3c);
-}
-
-.theme-swatch-purple {
-  background: linear-gradient(135deg, #b48ee0, #9265c4);
-}
-
-.theme-swatch-pink {
-  background: linear-gradient(135deg, #ef8fac, #dd6289);
-}
-
-.theme-name {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text-dark);
-}
+.theme-name { font-size: 17px; font-weight: 700; color: var(--text-dark); }
 
 .theme-hint {
   text-align: center;
@@ -745,10 +891,7 @@ body {
   padding: 40px 10px 20px;
 }
 
-.generic-icon {
-  font-size: 56px;
-  margin-bottom: 18px;
-}
+.generic-icon { font-size: 56px; margin-bottom: 18px; }
 
 .btn-generic-back {
   margin-top: 18px;
@@ -758,17 +901,9 @@ body {
 
 /* ---------- responsive ---------- */
 @media (max-width: 420px) {
-  .greeting {
-    font-size: 28px;
-  }
-
-  .phone-frame {
-    padding: 28px 18px 48px;
-  }
-
-  .mood-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .greeting { font-size: 28px; }
+  .phone-frame { padding: 28px 18px 48px; }
+  .mood-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ---------- accessibility ---------- */
