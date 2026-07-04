@@ -4,6 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>가족과 함께</title>
+<script>
+  // 저장된 테마를 화면이 그려지기 전에 먼저 적용해서 색이 깜빡이지 않게 함
+  (function () {
+    try {
+      var saved = localStorage.getItem("eldtree-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    } catch (e) {}
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -11,13 +20,18 @@
 </head>
 <body>
 
+  <div class="bg-shapes" id="bg-shapes" aria-hidden="true"></div>
+
   <div class="phone-frame">
 
     <!-- ============ HOME SCREEN ============ -->
     <section class="screen active" id="screen-home">
       <header class="top-bar">
         <span class="pill pill-muted">홈</span>
-        <span class="pill pill-soft">오늘도 편안하게</span>
+        <div class="top-bar-right">
+          <span class="pill pill-soft">오늘도 편안하게</span>
+          <button class="icon-btn" id="btn-settings" aria-label="설정">⚙</button>
+        </div>
       </header>
 
       <h1 class="greeting">안녕하세요, 가족님</h1>
@@ -93,6 +107,102 @@
       </div>
     </section>
 
+    <!-- ============ PHOTO SCREEN ============ -->
+    <section class="screen" id="screen-photo">
+
+      <div id="photo-home-view">
+        <header class="top-bar">
+          <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+          <span class="pill pill-soft">사진</span>
+        </header>
+
+        <h1 class="greeting greeting-sm">사진 보기</h1>
+        <p class="subtitle">가족과 함께 한 사진을 볼 수 있어요.</p>
+
+        <div class="photo-special-grid">
+          <div class="special-card recommend">
+            <h3>⭐ 추천</h3>
+            <p>가장 많이 본 추억</p>
+          </div>
+          <div class="special-card memory">
+            <h3>🕒 1년 전 오늘</h3>
+            <p>작년 오늘의 사진</p>
+          </div>
+        </div>
+
+        <h2 class="section-title">갤러리</h2>
+        <div class="album-grid" id="album-grid">
+          <div class="album-card" id="unclassified-album">
+            <button class="album-delete" id="delete-unclassified" aria-label="분류 안됨 앨범 삭제">✕</button>
+            <div class="album-cover layout-1"></div>
+            <div class="album-info">
+              <div class="album-name">분류 안됨</div>
+              <div class="album-count" id="unclassified-count">사진 0장</div>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover layout-2">
+              <img src="https://picsum.photos/300?4" alt="">
+              <img src="https://picsum.photos/300?5" alt="">
+              <img src="https://picsum.photos/300?6" alt="">
+            </div>
+            <div class="album-info">
+              <div class="album-name">손주 사진</div>
+              <div class="album-count">사진 3장</div>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover layout-3">
+              <img src="https://picsum.photos/300?7" alt="">
+              <img src="https://picsum.photos/300?8" alt="">
+              <img src="https://picsum.photos/300?9" alt="">
+              <img src="https://picsum.photos/300?10" alt="">
+            </div>
+            <div class="album-info">
+              <div class="album-name">추억 모음</div>
+              <div class="album-count">사진 4장</div>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover layout-1">
+              <img src="https://picsum.photos/300?11" alt="">
+              <img src="https://picsum.photos/300?12" alt="">
+              <img src="https://picsum.photos/300?13" alt="">
+            </div>
+            <div class="album-info">
+              <div class="album-name">명절 모임</div>
+              <div class="album-count">사진 3장</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-feature upload-photo-btn" id="upload-photo-btn">
+          <span class="feature-icon">➕</span>
+          <span>사진 업로드</span>
+        </button>
+        <input id="photo-upload" type="file" accept="image/*" multiple>
+      </div>
+
+      <div class="album-view" id="album-view">
+        <header class="top-bar">
+          <button class="pill pill-muted" id="back-to-gallery">← 갤러리</button>
+        </header>
+        <h1 class="greeting greeting-sm" id="album-title">가족 여행</h1>
+        <div class="photo-mosaic" id="photo-mosaic">
+          <img src="https://picsum.photos/400?1" alt="">
+          <img src="https://picsum.photos/400?2" alt="">
+          <img src="https://picsum.photos/400?3" alt="">
+          <img src="https://picsum.photos/400?4" alt="">
+          <img src="https://picsum.photos/400?5" alt="">
+          <img src="https://picsum.photos/400?6" alt="">
+        </div>
+      </div>
+
+    </section>
+
     <!-- ============ MOOD CHECK SCREEN ============ -->
     <section class="screen" id="screen-mood">
       <header class="top-bar">
@@ -127,6 +237,42 @@
       </div>
 
       <p class="mood-hint" id="mood-hint">&nbsp;</p>
+    </section>
+
+    <!-- ============ SETTINGS SCREEN (테마 변경) ============ -->
+    <section class="screen" id="screen-settings">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft">설정</span>
+      </header>
+
+      <h1 class="greeting greeting-sm">테마 선택</h1>
+      <p class="subtitle">화면의 색상을 원하는 분위기로 바꿀 수 있어요.</p>
+
+      <div class="theme-list" id="theme-list">
+        <button class="theme-option" data-theme="orange">
+          <span class="theme-swatch theme-swatch-orange"></span>
+          <span class="theme-name">따뜻한 오렌지</span>
+        </button>
+        <button class="theme-option" data-theme="blue">
+          <span class="theme-swatch theme-swatch-blue"></span>
+          <span class="theme-name">차분한 하늘색</span>
+        </button>
+        <button class="theme-option" data-theme="green">
+          <span class="theme-swatch theme-swatch-green"></span>
+          <span class="theme-name">싱그러운 초록</span>
+        </button>
+        <button class="theme-option" data-theme="purple">
+          <span class="theme-swatch theme-swatch-purple"></span>
+          <span class="theme-name">은은한 라벤더</span>
+        </button>
+        <button class="theme-option" data-theme="pink">
+          <span class="theme-swatch theme-swatch-pink"></span>
+          <span class="theme-name">포근한 로즈</span>
+        </button>
+      </div>
+
+      <p class="theme-hint" id="theme-hint">&nbsp;</p>
     </section>
 
     <!-- ============ GENERIC PLACEHOLDER SCREEN ============ -->
