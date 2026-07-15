@@ -63,32 +63,6 @@ document.querySelectorAll(".mood-option").forEach((option) => {
   });
 });
 
-// ---------- SOS button ----------
-const helpCountEl = document.getElementById("help-count");
-let helpCount = 0;
-
-document.getElementById("btn-sos").addEventListener("click", () => {
-  helpCount += 1;
-  helpCountEl.textContent = `${helpCount}개`;
-});
-
-// ---------- daily message rotator ----------
-const dailyMessages = [
-  "오늘 하루도 가족과 함께라서 든든해요.",
-  "잠깐 창밖을 보며 숨을 크게 쉬어 보세요.",
-  "물 한 잔 마시고 잠시 쉬어가도 좋아요.",
-  "오늘도 무사히 하루를 보내고 계세요.",
-  "필요할 땐 언제든 도움 요청 버튼을 눌러주세요.",
-];
-
-let messageIndex = 0;
-const messageEl = document.getElementById("daily-message");
-
-document.getElementById("btn-refresh-message").addEventListener("click", () => {
-  messageIndex = (messageIndex + 1) % dailyMessages.length;
-  messageEl.textContent = dailyMessages[messageIndex];
-});
-
 // ---------- settings / theme ----------
 const THEME_STORAGE_KEY = "eldtree-theme";
 const THEME_NAMES = {
