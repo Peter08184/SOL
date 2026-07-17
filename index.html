@@ -88,6 +88,8 @@
           <span class="vital-label">수면</span>
         </div>
       </div>
+
+      <button class="guardian-link" id="btn-guardian">보호자용</button>
     </section>
 
     <!-- ============ PHOTO SCREEN ============ -->
@@ -259,6 +261,53 @@
       </div>
     </section>
 
+    <!-- ============ GUARDIAN DASHBOARD SCREEN ============ -->
+    <section class="screen" id="screen-guardian">
+      <header class="top-bar">
+        <button class="pill pill-muted btn-back" data-back="screen-home">← 홈</button>
+        <span class="pill pill-soft">🔒 보호자 화면</span>
+      </header>
+
+      <h1 class="greeting greeting-sm">보호자 대시보드</h1>
+      <p class="subtitle">어르신의 이용 현황과 기록을 한눈에 확인할 수 있어요.</p>
+
+      <div class="stat-row">
+        <div class="stat-mini">
+          <span class="stat-mini-label">🆘 SOS 요청</span>
+          <span class="stat-mini-value" id="guardian-sos-count">0</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">📷 사진 조회</span>
+          <span class="stat-mini-value" id="guardian-photo-count">0</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">🎥 영상 조회</span>
+          <span class="stat-mini-value" id="guardian-video-count">0</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">SOS 요청 기록</h2>
+      <div class="guardian-log-list" id="guardian-sos-list"></div>
+
+      <h2 class="section-title">기분 체크 기록</h2>
+      <div class="guardian-log-list" id="guardian-mood-list"></div>
+
+      <h2 class="section-title">환경 설정 현황</h2>
+      <div class="message-card">
+        <div class="guardian-settings-row">
+          <span class="guardian-settings-label">현재 테마</span>
+          <span class="guardian-settings-value" id="guardian-theme-value">-</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">관리</h2>
+      <button class="btn-feature guardian-manage-btn" id="guardian-pin-change-btn">
+        <span class="feature-icon">🔑</span>
+        <span>보호자 PIN 변경</span>
+      </button>
+      <button class="guardian-danger-btn" id="guardian-reset-btn">기록 초기화</button>
+    </section>
+
   </div>
 
   <!-- ============ 전체화면 뷰어 (사진/영상 공용) ============ -->
@@ -293,6 +342,53 @@
         <button class="album-add-btn" id="album-manage-add-btn">추가</button>
       </div>
       <button class="sheet-cancel" id="album-manage-close">닫기</button>
+    </div>
+  </div>
+
+  <!-- ============ 보호자 PIN 입력 시트 ============ -->
+  <div class="sheet-overlay" id="guardian-pin-overlay">
+    <div class="sheet">
+      <p class="sheet-title">🔒 보호자 PIN을 입력해 주세요</p>
+      <input
+        type="password"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="4"
+        id="guardian-pin-input"
+        class="album-add-input guardian-pin-input"
+        placeholder="••••"
+      />
+      <p class="theme-hint" id="guardian-pin-error">&nbsp;</p>
+      <button class="album-add-btn guardian-pin-submit-btn" id="guardian-pin-submit">확인</button>
+      <button class="sheet-cancel" id="guardian-pin-cancel">취소</button>
+    </div>
+  </div>
+
+  <!-- ============ 보호자 PIN 변경 시트 ============ -->
+  <div class="sheet-overlay" id="guardian-pin-change-overlay">
+    <div class="sheet">
+      <p class="sheet-title">보호자 PIN 변경</p>
+      <input
+        type="password"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="4"
+        id="guardian-new-pin"
+        class="album-add-input guardian-pin-input"
+        placeholder="새 PIN (4자리)"
+      />
+      <input
+        type="password"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="4"
+        id="guardian-new-pin-confirm"
+        class="album-add-input guardian-pin-input guardian-pin-input-spaced"
+        placeholder="새 PIN 확인"
+      />
+      <p class="theme-hint" id="guardian-pin-change-hint">&nbsp;</p>
+      <button class="album-add-btn guardian-pin-submit-btn" id="guardian-pin-change-save">저장</button>
+      <button class="sheet-cancel" id="guardian-pin-change-cancel">취소</button>
     </div>
   </div>
 
