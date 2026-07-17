@@ -899,6 +899,103 @@ body {
   width: 100%;
 }
 
+/* ---------- 보호자 진입 링크 (홈 화면 하단, 눈에 띄지 않게) ---------- */
+.guardian-link {
+  display: block;
+  margin: 26px auto 0;
+  padding: 8px 6px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  opacity: 0.55;
+  cursor: pointer;
+  text-align: center;
+}
+
+.guardian-link:active { opacity: 0.85; }
+
+/* ---------- 보호자 PIN 입력 ---------- */
+.guardian-pin-input {
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  letter-spacing: 10px;
+  font-weight: 800;
+}
+
+.guardian-pin-input-spaced { margin-top: 12px; }
+
+.guardian-pin-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* ---------- 보호자 대시보드 ---------- */
+.guardian-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+}
+
+.guardian-log-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.guardian-log-icon { font-size: 18px; flex-shrink: 0; }
+
+.guardian-log-text {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.guardian-log-time {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.guardian-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.guardian-settings-label { font-size: 15px; font-weight: 700; color: var(--text-brown); }
+.guardian-settings-value { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+
+.guardian-manage-btn { width: 100%; margin-top: 28px; }
+
+.guardian-danger-btn {
+  width: 100%;
+  font-family: inherit;
+  background: none;
+  border: 2px solid var(--red-2);
+  color: var(--red-2);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.guardian-danger-btn:active { transform: scale(0.98); }
+
 /* ---------- responsive ---------- */
 @media (max-width: 420px) {
   .greeting { font-size: 28px; }
