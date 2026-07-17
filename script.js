@@ -59,6 +59,7 @@ document.querySelectorAll(".mood-option").forEach((option) => {
     moodHint.textContent = `${label}(으)로 저장할게요.`;
 
     moodDisplay.textContent = `${emoji} ${label}`;
+    logMood(emoji, label);
     setTimeout(() => showScreen("screen-home"), 550);
   });
 });
@@ -105,6 +106,17 @@ document.querySelectorAll(".theme-option").forEach((btn) => {
     if (themeHint) themeHint.textContent = `${THEME_NAMES[theme] || ""} 테마로 바꿨어요.`;
   });
 });
+
+// ---------- SOS 도움 요청 ----------
+const btnSOS = document.getElementById("btn-sos");
+if (btnSOS) {
+  btnSOS.addEventListener("click", () => {
+    const ok = confirm("보호자에게 도움을 요청하시겠어요?");
+    if (!ok) return;
+    logSOS();
+    alert("보호자에게 도움 요청을 보냈어요.\n곧 연락 드릴게요.");
+  });
+}
 
 // ---------- 랜덤 도형 배경 ----------
 (function initBackgroundShapes() {
@@ -530,6 +542,7 @@ function createGalleryController(config) {
     renderMosaic(cat);
     config.homeViewEl.style.display = "none";
     config.albumViewEl.classList.add("active");
+    logAlbumOpen(config.kind);
   }
 
   function closeAlbum() {
@@ -791,4 +804,250 @@ if (uploadVideoBtn && videoUploadInput) {
 const videoManageBtn = document.getElementById("video-manage-btn");
 if (videoManageBtn) {
   videoManageBtn.addEventListener("click", () => openAlbumManager(videoController));
+}
+
+/* ======================================================================
+   보호자(가디언) 대시보드 로직
+   - 기분 체크, 앨범 조회 횟수, SOS 요청 기록을 저장하고
+   - PIN으로 보호된 화면에서 보호자가 확인할 수 있게 합니다.
+   ====================================================================== */
+
+const GUARDIAN_LOG_KEY = "eldtree-guardian-log";
+const GUARDIAN_PIN_KEY = "eldtree-guardian-pin";
+const DEFAULT_GUARDIAN_PIN = "1234";
+
+function loadGuardianLog() {
+  try {
+    const raw = localStorage.getItem(GUARDIAN_LOG_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return {
+        sosHistory: parsed.sosHistory || [],
+        moodHistory: parsed.moodHistory || [],
+        photoOpens: parsed.photoOpens || 0,
+        videoOpens: parsed.videoOpens || 0,
+      };
+    }
+  } catch (e) {}
+  return { sosHistory: [], moodHistory: [], photoOpens: 0, videoOpens: 0 };
+}
+
+let guardianLog = loadGuardianLog();
+
+function saveGuardianLog() {
+  try {
+    localStorage.setItem(GUARDIAN_LOG_KEY, JSON.stringify(guardianLog));
+  } catch (e) {}
+}
+
+function getGuardianPin() {
+  try {
+    return localStorage.getItem(GUARDIAN_PIN_KEY) || DEFAULT_GUARDIAN_PIN;
+  } catch (e) {
+    return DEFAULT_GUARDIAN_PIN;
+  }
+}
+
+function setGuardianPin(pin) {
+  try {
+    localStorage.setItem(GUARDIAN_PIN_KEY, pin);
+  } catch (e) {}
+}
+
+function logSOS() {
+  guardianLog.sosHistory.unshift({ time: new Date().toISOString() });
+  saveGuardianLog();
+}
+
+function logMood(emoji, label) {
+  guardianLog.moodHistory.unshift({ time: new Date().toISOString(), emoji, label });
+  saveGuardianLog();
+}
+
+function logAlbumOpen(kind) {
+  if (kind === "video") {
+    guardianLog.videoOpens += 1;
+  } else {
+    guardianLog.photoOpens += 1;
+  }
+  saveGuardianLog();
+}
+
+function formatLogDateTime(iso) {
+  const d = new Date(iso);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${y}.${m}.${day}  ${hh}:${mm}`;
+}
+
+function renderGuardianLogList(containerEl, entries, emptyText, rowBuilder) {
+  containerEl.innerHTML = "";
+  if (!entries.length) {
+    const empty = document.createElement("p");
+    empty.className = "manage-empty";
+    empty.textContent = emptyText;
+    containerEl.appendChild(empty);
+    return;
+  }
+  entries.slice(0, 30).forEach((entry) => {
+    containerEl.appendChild(rowBuilder(entry));
+  });
+}
+
+function renderGuardianDashboard() {
+  const sosCountEl = document.getElementById("guardian-sos-count");
+  const photoCountEl = document.getElementById("guardian-photo-count");
+  const videoCountEl = document.getElementById("guardian-video-count");
+  if (sosCountEl) sosCountEl.textContent = guardianLog.sosHistory.length;
+  if (photoCountEl) photoCountEl.textContent = guardianLog.photoOpens;
+  if (videoCountEl) videoCountEl.textContent = guardianLog.videoOpens;
+
+  const sosListEl = document.getElementById("guardian-sos-list");
+  if (sosListEl) {
+    renderGuardianLogList(sosListEl, guardianLog.sosHistory, "아직 SOS 요청 기록이 없어요.", (entry) => {
+      const row = document.createElement("div");
+      row.className = "guardian-log-row";
+      row.innerHTML = `
+        <span class="guardian-log-icon">🆘</span>
+        <span class="guardian-log-text">도움 요청</span>
+        <span class="guardian-log-time">${formatLogDateTime(entry.time)}</span>
+      `;
+      return row;
+    });
+  }
+
+  const moodListEl = document.getElementById("guardian-mood-list");
+  if (moodListEl) {
+    renderGuardianLogList(moodListEl, guardianLog.moodHistory, "아직 기분 체크 기록이 없어요.", (entry) => {
+      const row = document.createElement("div");
+      row.className = "guardian-log-row";
+      row.innerHTML = `
+        <span class="guardian-log-icon">${entry.emoji}</span>
+        <span class="guardian-log-text">${entry.label}</span>
+        <span class="guardian-log-time">${formatLogDateTime(entry.time)}</span>
+      `;
+      return row;
+    });
+  }
+
+  const themeValueEl = document.getElementById("guardian-theme-value");
+  if (themeValueEl) {
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "orange";
+    themeValueEl.textContent = THEME_NAMES[currentTheme] || currentTheme;
+  }
+}
+
+// ---------- 보호자 진입 링크 + PIN 확인 ----------
+const guardianLink = document.getElementById("btn-guardian");
+const guardianPinOverlay = document.getElementById("guardian-pin-overlay");
+const guardianPinInput = document.getElementById("guardian-pin-input");
+const guardianPinError = document.getElementById("guardian-pin-error");
+const guardianPinSubmit = document.getElementById("guardian-pin-submit");
+const guardianPinCancel = document.getElementById("guardian-pin-cancel");
+
+function openGuardianPinModal() {
+  if (!guardianPinOverlay) return;
+  guardianPinInput.value = "";
+  guardianPinError.textContent = "\u00A0";
+  guardianPinOverlay.classList.add("active");
+  setTimeout(() => guardianPinInput.focus(), 60);
+}
+
+function closeGuardianPinModal() {
+  if (!guardianPinOverlay) return;
+  guardianPinOverlay.classList.remove("active");
+}
+
+function attemptGuardianLogin() {
+  const val = guardianPinInput.value.trim();
+  if (val && val === getGuardianPin()) {
+    closeGuardianPinModal();
+    renderGuardianDashboard();
+    showScreen("screen-guardian");
+  } else {
+    guardianPinError.textContent = "PIN 번호가 올바르지 않아요.";
+    guardianPinInput.value = "";
+    guardianPinInput.focus();
+  }
+}
+
+if (guardianLink) {
+  guardianLink.addEventListener("click", openGuardianPinModal);
+}
+if (guardianPinCancel) {
+  guardianPinCancel.addEventListener("click", closeGuardianPinModal);
+}
+if (guardianPinOverlay) {
+  guardianPinOverlay.addEventListener("click", (e) => {
+    if (e.target === guardianPinOverlay) closeGuardianPinModal();
+  });
+}
+if (guardianPinSubmit) {
+  guardianPinSubmit.addEventListener("click", attemptGuardianLogin);
+}
+if (guardianPinInput) {
+  guardianPinInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") attemptGuardianLogin();
+  });
+}
+
+// ---------- 기록 초기화 ----------
+const guardianResetBtn = document.getElementById("guardian-reset-btn");
+if (guardianResetBtn) {
+  guardianResetBtn.addEventListener("click", () => {
+    const ok = confirm("모든 기록을 초기화하시겠어요?\n이 작업은 되돌릴 수 없어요.");
+    if (!ok) return;
+    guardianLog = { sosHistory: [], moodHistory: [], photoOpens: 0, videoOpens: 0 };
+    saveGuardianLog();
+    renderGuardianDashboard();
+  });
+}
+
+// ---------- 보호자 PIN 변경 ----------
+const guardianPinChangeBtn = document.getElementById("guardian-pin-change-btn");
+const guardianPinChangeOverlay = document.getElementById("guardian-pin-change-overlay");
+const guardianNewPin = document.getElementById("guardian-new-pin");
+const guardianNewPinConfirm = document.getElementById("guardian-new-pin-confirm");
+const guardianPinChangeHint = document.getElementById("guardian-pin-change-hint");
+const guardianPinChangeSave = document.getElementById("guardian-pin-change-save");
+const guardianPinChangeCancel = document.getElementById("guardian-pin-change-cancel");
+
+if (guardianPinChangeBtn) {
+  guardianPinChangeBtn.addEventListener("click", () => {
+    guardianNewPin.value = "";
+    guardianNewPinConfirm.value = "";
+    guardianPinChangeHint.textContent = "\u00A0";
+    guardianPinChangeOverlay.classList.add("active");
+    setTimeout(() => guardianNewPin.focus(), 60);
+  });
+}
+if (guardianPinChangeCancel) {
+  guardianPinChangeCancel.addEventListener("click", () => {
+    guardianPinChangeOverlay.classList.remove("active");
+  });
+}
+if (guardianPinChangeOverlay) {
+  guardianPinChangeOverlay.addEventListener("click", (e) => {
+    if (e.target === guardianPinChangeOverlay) guardianPinChangeOverlay.classList.remove("active");
+  });
+}
+if (guardianPinChangeSave) {
+  guardianPinChangeSave.addEventListener("click", () => {
+    const p1 = guardianNewPin.value.trim();
+    const p2 = guardianNewPinConfirm.value.trim();
+    if (!/^\d{4}$/.test(p1)) {
+      guardianPinChangeHint.textContent = "4자리 숫자로 입력해 주세요.";
+      return;
+    }
+    if (p1 !== p2) {
+      guardianPinChangeHint.textContent = "PIN이 서로 달라요. 다시 확인해 주세요.";
+      return;
+    }
+    setGuardianPin(p1);
+    guardianPinChangeOverlay.classList.remove("active");
+    alert("PIN이 변경되었어요.");
+  });
 }
